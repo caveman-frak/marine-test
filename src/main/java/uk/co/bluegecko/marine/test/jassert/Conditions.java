@@ -34,7 +34,7 @@ public class Conditions {
 	public <T extends BigDecimal> BiPredicate<T, T> isEqualTo() {
 		return (a, e) -> a.compareTo(e) == 0;
 	}
-	
+
 	/**
 	 * Build a described {@link Condition} using the predicate.
 	 *
@@ -83,6 +83,22 @@ public class Conditions {
 	                                   final U expected) {
 		return new Condition<>(a -> predicate.test(function.apply(a), expected),
 				"%s \"%s\"", description, expected);
+	}
+
+	/**
+	 * Build a described {@link Condition} using the function and predicate.
+	 *
+	 * @param function    extract a value for testing.
+	 * @param description short description of the extracted value and the test.
+	 * @param <T>         the type of the value being tested.
+	 * @param <U>         the type of the value being extracted.
+	 * @return a condition to be used with {@link Assertions#assertThat}.
+	 */
+	public <T, U> Condition<T> extract(final Function<T, U> function, String extract,
+	                                   final Predicate<U> predicate, final String description
+	) {
+		return new Condition<>(a -> predicate.test(function.apply(a)),
+				"%s %s", extract, description);
 	}
 
 	/**
