@@ -10,7 +10,6 @@ import java.time.Month;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static uk.co.bluegecko.marine.test.jassert.Conditions.condition;
-import static uk.co.bluegecko.marine.test.jassert.Conditions.extract;
 import static uk.co.bluegecko.marine.test.jassert.Conditions.isEqualTo;
 
 class ConditionsTest {
@@ -53,7 +52,7 @@ class ConditionsTest {
 
 	@Test
 	void testExtract() {
-		Condition<LocalDate> isJanuary = extract(LocalDate::getMonth, "having month",
+		Condition<LocalDate> isJanuary = Conditions.extracted(LocalDate::getMonth, "having month",
 				Object::equals, "equal to", Month.JANUARY);
 		assertThat(LocalDate.of(2020, Month.JANUARY, 1))
 				.as("Start of year")
@@ -73,7 +72,7 @@ class ConditionsTest {
 
 	@Test
 	void testExtractWithoutExtractText() {
-		Condition<LocalDate> isJanuary = extract(LocalDate::getMonth,
+		Condition<LocalDate> isJanuary = Conditions.extracted(LocalDate::getMonth,
 				Object::equals, "having month equal to", Month.JANUARY);
 		assertThat(LocalDate.of(2020, Month.JANUARY, 1))
 				.as("Start of year")
@@ -93,7 +92,7 @@ class ConditionsTest {
 
 	@Test
 	void testExtractWithDescription() {
-		Condition<LocalDate> isJanuary = extract(LocalDate::getMonth, "having month",
+		Condition<LocalDate> isJanuary = Conditions.extracted(LocalDate::getMonth, "having month",
 				Object::equals, "equal to", Month.JANUARY);
 		assertThatExceptionOfType(AssertionError.class).isThrownBy(
 						() -> assertThat(LocalDate.of(2020, Month.DECEMBER, 31))

@@ -61,9 +61,9 @@ public class Conditions {
 	 * @param <U>         the type of the value being extracted.
 	 * @return a condition to be used with {@link Assertions#assertThat}.
 	 */
-	public <T, U> Condition<T> extract(final Function<T, U> function, final String extract,
-	                                   final BiPredicate<U, U> predicate, final String description,
-	                                   final U expected) {
+	public <T, U> Condition<T> extracted(final Function<T, U> function, final String extract,
+	                                     final BiPredicate<U, U> predicate, final String description,
+	                                     final U expected) {
 		return new Condition<>(a -> predicate.test(function.apply(a), expected),
 				"%s %s \"%s\"", extract, description, expected);
 	}
@@ -78,9 +78,9 @@ public class Conditions {
 	 * @param <U>         the type of the value being extracted.
 	 * @return a condition to be used with {@link Assertions#assertThat}.
 	 */
-	public <T, U> Condition<T> extract(final Function<T, U> function,
-	                                   final BiPredicate<U, U> predicate, final String description,
-	                                   final U expected) {
+	public <T, U> Condition<T> extracted(final Function<T, U> function,
+	                                     final BiPredicate<U, U> predicate, final String description,
+	                                     final U expected) {
 		return new Condition<>(a -> predicate.test(function.apply(a), expected),
 				"%s \"%s\"", description, expected);
 	}
@@ -94,8 +94,8 @@ public class Conditions {
 	 * @param <U>         the type of the value being extracted.
 	 * @return a condition to be used with {@link Assertions#assertThat}.
 	 */
-	public <T, U> Condition<T> extract(final Function<T, U> function, String extract,
-	                                   final Predicate<U> predicate, final String description
+	public <T, U> Condition<T> extracted(final Function<T, U> function, String extract,
+	                                     final Predicate<U> predicate, final String description
 	) {
 		return new Condition<>(a -> predicate.test(function.apply(a)),
 				"%s %s", extract, description);
@@ -110,8 +110,8 @@ public class Conditions {
 	 * @param <U>         the type of the value being extracted.
 	 * @return a condition to be used with {@link Assertions#assertThat}.
 	 */
-	public <T, U> Condition<T> extract(final Function<T, U> function,
-	                                   final Predicate<U> predicate, final String description
+	public <T, U> Condition<T> extracted(final Function<T, U> function,
+	                                     final Predicate<U> predicate, final String description
 	) {
 		return new Condition<>(a -> predicate.test(function.apply(a)),
 				"%s", description);
