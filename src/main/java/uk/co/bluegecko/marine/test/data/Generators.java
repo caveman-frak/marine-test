@@ -93,8 +93,8 @@ public class Generators {
 				if (multiple > 0) throw new IllegalArgumentException(
 						String.format("Value %d is too large to express as %d base26 digits", value, length));
 			} else {
-				v -= x * multiple;
-				char ch = Character.valueOf((char) (multiple + 65));
+				v -= (long) x * multiple;
+				char ch = (char) (multiple + 65);
 				buffer.append(ch);
 			}
 		}
