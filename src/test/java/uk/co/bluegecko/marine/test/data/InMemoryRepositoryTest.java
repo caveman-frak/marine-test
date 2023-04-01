@@ -63,11 +63,11 @@ class InMemoryRepositoryTest {
 	@Test
 	void testSaveWithNullId() {
 		// repository with `no-op` generator
-		repository = new InMemoryRepository<>(Foo::id, (i, e) -> e.id(i), Generators.noop());
+		var repo = new InMemoryRepository<Foo, Long>(Foo::id, (i, e) -> e.id(i), Generators.noop());
 
 		// and entity with no id
 		assertThatExceptionOfType(IllegalArgumentException.class)
-				.isThrownBy(() -> repository.save(new Foo(null, "Four")))
+				.isThrownBy(() -> repo.save(new Foo(null, "Four")))
 				.withMessage("Id must not be `null`")
 				.withNoCause();
 	}
@@ -86,6 +86,7 @@ class InMemoryRepositoryTest {
 				.isEqualTo(new Foo(5L, "Five"));
 	}
 
+	@SuppressWarnings("AssertBetweenInconvertibleTypes")
 	@Test
 	void testFindById() {
 		assertThat(repository.findById(2L))
@@ -182,7 +183,7 @@ class InMemoryRepositoryTest {
 
 	@Test
 	void testFindAllPaged() {
-		// will always return unpaged results
+		// will always return un-paged results
 		assertThat(repository.findAll(PageRequest.of(0, 2)))
 				.hasSize(3)
 				.extracting(Foo::name)
