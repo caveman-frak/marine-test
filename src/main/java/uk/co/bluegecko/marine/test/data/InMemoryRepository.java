@@ -24,8 +24,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.FluentQuery;
+import uk.co.bluegecko.marine.shared.data.repository.ListRepository;
 
-public class InMemoryRepository<T, ID> implements JpaRepository<T, ID> {
+public class InMemoryRepository<T, ID> implements JpaRepository<T, ID>, ListRepository<T, ID> {
 
 	protected final Function<T, ID> extractor;
 	protected final BiConsumer<ID, T> inserter;
