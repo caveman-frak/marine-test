@@ -1,10 +1,9 @@
 package uk.co.bluegecko.marine.test.data;
 
-import lombok.experimental.UtilityClass;
-
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Supplier;
+import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class Generators {
@@ -90,8 +89,10 @@ public class Generators {
 			int x = (int) Math.pow(26, i);
 			int multiple = (int) v / x;
 			if (i == length) {
-				if (multiple > 0) throw new IllegalArgumentException(
-						String.format("Value %d is too large to express as %d base26 digits", value, length));
+				if (multiple > 0) {
+					throw new IllegalArgumentException(
+							String.format("Value %d is too large to express as %d base26 digits", value, length));
+				}
 			} else {
 				v -= (long) x * multiple;
 				char ch = (char) (multiple + 65);
