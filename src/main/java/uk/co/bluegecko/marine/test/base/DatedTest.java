@@ -1,35 +1,32 @@
 package uk.co.bluegecko.marine.test.base;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.time.Clock;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
+import java.time.LocalTime;
 import java.time.ZoneOffset;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.experimental.Accessors;
+import lombok.experimental.FieldDefaults;
 
-public abstract class DatedTest {
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
+@Getter(AccessLevel.PROTECTED)
+@Accessors(fluent = true, makeFinal = true)
+public abstract class DatedTest extends BaseTest implements DateTimeFixture {
 
-	private final Clock clock;
-	private final ObjectMapper objectMapper;
+	LocalDate date;
+	LocalTime time;
+	ZoneOffset zone;
+	Clock clock;
 
 	protected DatedTest() {
+		date = LocalDate.of(YEAR, MONTH, DAY);
+		time = LocalTime.of(HOUR, MINUTE, SECOND);
+		zone = ZONE;
 		clock = Clock.fixed(
-				LocalDateTime.of(2000, Month.JUNE, 15, 12, 30).toInstant(ZoneOffset.UTC),
-				ZoneOffset.UTC);
-		objectMapper = JsonMapper.builder()
-				.defaultLeniency(true)
-				.addModule(new JavaTimeModule())
-				.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-				.build();
+				LocalDateTime.of(date, time).toInstant(zone),
+				zone);
 	}
 
-	protected final ObjectMapper objectMapper() {
-		return objectMapper;
-	}
-
-	protected final Clock clock() {
-		return clock;
-	}
 }

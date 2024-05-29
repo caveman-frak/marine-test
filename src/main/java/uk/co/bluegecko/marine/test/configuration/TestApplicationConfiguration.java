@@ -5,9 +5,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Month;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.random.RandomGenerator;
 import lombok.NonNull;
@@ -15,25 +13,26 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import uk.co.bluegecko.marine.shared.configuration.SharedConfiguration;
+import uk.co.bluegecko.marine.test.base.DateTimeFixture;
 import uk.co.bluegecko.marine.test.random.SteppingGenerator;
 
 @TestConfiguration
-public class TestApplicationConfiguration extends SharedConfiguration {
+public class TestApplicationConfiguration extends SharedConfiguration implements DateTimeFixture {
 
 	@SuppressWarnings("SameReturnValue")
 	@Bean
 	public ZoneId zone() {
-		return ZoneOffset.UTC;
+		return ZONE;
 	}
 
 	@Bean
 	public LocalDate date() {
-		return LocalDate.of(2000, Month.JUNE, 15);
+		return LocalDate.of(YEAR, MONTH, DAY);
 	}
 
 	@Bean
 	public LocalTime time() {
-		return LocalTime.of(12, 30, 10);
+		return LocalTime.of(HOUR, MINUTE, SECOND);
 	}
 
 	@Bean
