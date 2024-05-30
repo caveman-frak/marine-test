@@ -1,6 +1,6 @@
 package uk.co.bluegecko.marine.test;
 
-public class TestPackage {
+public final class TestPackage {
 
 	private TestPackage() {
 	}
