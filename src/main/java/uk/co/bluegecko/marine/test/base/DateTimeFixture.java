@@ -12,5 +12,6 @@ public interface DateTimeFixture {
 	int HOUR = 12;
 	int MINUTE = 30;
 	int SECOND = 10;
+	long EPOCH_SECOND = 961072210;
 
 }
